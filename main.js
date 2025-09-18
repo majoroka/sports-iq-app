@@ -1,5 +1,5 @@
 // URL do nosso backend API
-const API_URL = '/api/fixtures'; // Correct for deployment
+const API_URL = '/api/fixtures';
 
 // Elementos dos filtros
 const dateFilter = document.getElementById('date-filter');
@@ -26,10 +26,10 @@ async function fetchFixtures() {
         // Adicionar um ID único a cada jogo para facilitar a seleção
         fixturesData.forEach((fixture, index) => fixture.id = index);
 
-        initializeFilters(); // Initialize filters after data is fetched
+        initializeFilters();
     } catch (error) {
         console.error("Could not fetch fixtures:", error);
-        // Could display an error message on the page here
+        // Poderíamos adicionar uma mensagem de erro na página aqui, se desejado.
     }
 }
 
@@ -40,7 +40,7 @@ function initializeFilters() {
     const allDates = [...new Set(fixturesData.map(f => f.Date))].sort();
     populateDropdown(dateFilter, allDates, "Select a Date");
 
-    // Initially, the game filter is disabled
+    // Inicialmente, o filtro de jogos está desativado
     gameFilter.innerHTML = `<option value="">Select a Date First</option>`;
     gameFilter.disabled = true;
 
@@ -48,6 +48,37 @@ function initializeFilters() {
     dateFilter.addEventListener('change', handleDateChange);
     gameFilter.addEventListener('change', handleGameChange);
     clearFiltersBtn.addEventListener('click', resetAll);
+}
+
+/**
+ * Limpa todos os filtros e restaura o estado inicial.
+ */
+function resetAll() {
+    dateFilter.value = "";
+    gameFilter.innerHTML = `<option value="">Select a Date First</option>`;
+    gameFilter.disabled = true;
+    document.getElementById('dashboard').classList.add('hidden');
+}
+
+/**
+ * Helper genérico para popular um elemento <select>.
+ */
+function populateDropdown(selectElement, options, defaultText, selectedValue, isObject = false) {
+    selectElement.innerHTML = `<option value="">${defaultText}</option>`;
+    options.forEach(opt => {
+        const option = document.createElement('option');
+        if (isObject) {
+            option.value = opt.value;
+            option.textContent = opt.text;
+        } else {
+            option.value = opt;
+            option.textContent = opt;
+        }
+        selectElement.appendChild(option);
+    });
+    if (selectedValue) {
+        selectElement.value = selectedValue;
+    }
 }
 
 /**
@@ -89,37 +120,6 @@ function handleGameChange() {
 }
 
 /**
- * Limpa todos os filtros e restaura o estado inicial.
- */
-function resetAll() {
-    dateFilter.value = "";
-    gameFilter.innerHTML = `<option value="">Select a Date First</option>`;
-    gameFilter.disabled = true;
-    document.getElementById('dashboard').classList.add('hidden');
-}
-
-/**
- * Helper genérico para popular um elemento <select>.
- */
-function populateDropdown(selectElement, options, defaultText, selectedValue, isObject = false) {
-    selectElement.innerHTML = `<option value="">${defaultText}</option>`;
-    options.forEach(opt => {
-        const option = document.createElement('option');
-        if (isObject) {
-            option.value = opt.value;
-            option.textContent = opt.text;
-        } else {
-            option.value = opt;
-            option.textContent = opt;
-        }
-        selectElement.appendChild(option);
-    });
-    if (selectedValue) {
-        selectElement.value = selectedValue;
-    }
-}
-
-/**
  * Safely formats a number as a string with 2 decimal places.
  * Returns a placeholder if the input is null or invalid.
  * @param {number | null} num The number to format.
@@ -145,7 +145,7 @@ function updateDashboard(fixture) {
 
     // 1. Informações do Jogo
     document.getElementById('dash-game-title').textContent = `${fixture.Home} vs ${fixture.Away}`;
-    document.getElementById('dash-game-details').textContent = `${fixture.Date} | ${fixture.Country}`; // Corrected to remove Competition
+    document.getElementById('dash-game-details').textContent = `${fixture.Date} | ${fixture.Country}`;
 
     if (fixture.odds_available) {
         dashboardContent.classList.remove('hidden');
