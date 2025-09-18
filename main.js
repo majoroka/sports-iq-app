@@ -3,6 +3,7 @@ const API_URL = '/api/fixtures';
 
 // Elementos dos filtros
 const dateFilter = document.getElementById('date-filter');
+const gameFilter = document.getElementById('game-filter');
 const clearFiltersBtn = document.getElementById('clear-filters');
 
 // Variável global para guardar os dados dos jogos e o gráfico
