@@ -1,5 +1,5 @@
 // URL do nosso backend API
-const API_URL = '/api/fixtures';
+const API_URL = '/api/fixtures'; // Correct for deployment
 
 // Elementos dos filtros
 const dateFilter = document.getElementById('date-filter');

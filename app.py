@@ -1,7 +1,7 @@
 import io
 import requests
 import pandas as pd
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, url_for
 from scipy.stats import poisson
 
 # --- Constantes e Configuração ---
@@ -11,7 +11,7 @@ MAX_GOALS = 7
 # URL da API para obter os jogos
 FIXTURES_URL = "http://api.clubelo.com/Fixtures"
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # --- Funções de Cálculo ---
 
