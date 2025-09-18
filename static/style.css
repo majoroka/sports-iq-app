@@ -251,3 +251,15 @@ h1, h2, h3 {
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
+
+/* --- Media Queries for Responsive Design --- */
+@media (max-width: 768px) {
+    .dash-column-right {
+        /* On smaller screens, the right column doesn't need to be wider */
+        flex: 1;
+    }
+
+    #markets-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile instead of 4 */
+    }
+}
