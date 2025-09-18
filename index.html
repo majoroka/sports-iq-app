@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports IQ - Fixtures</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Chart.js para os gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Football Fixtures & Odds</h1>
+    </header>
+
+    <main class="container">
+        <section id="fixtures-section">
+            <h2>Upcoming Games</h2>
+
+            <div class="filters">
+                <div class="filter-group" id="date-filter-group">
+                    <label for="date-filter">Filter by Date:</label>
+                    <select id="date-filter">
+                        <option value="">All Dates</option>
+                    </select>
+                </div>
+                <div class="filter-group" id="game-filter-group">
+                    <label for="game-filter">Select a Game:</label>
+                    <select id="game-filter" disabled>
+                        <option value="">Select a Date First</option>
+                    </select>
+                </div>
+                <button id="clear-filters">Clear Filters</button>
+            </div>
+
+        </section>
+
+        <!-- O Dashboard fica escondido até um jogo ser selecionado -->
+        <section id="dashboard" class="hidden">
+            <div id="game-info">
+                <h2 id="dash-game-title"></h2>
+                <p id="dash-game-details"></p>
+            </div>
+
+            <!-- Este conteúdo só aparece se houver odds -->
+            <div id="dashboard-content">
+                <div class="dash-grid"> <!-- This is now the main container -->
+                    <div class="dash-column-left">
+                        <div class="dash-card main-odds">
+                            <h3>Match Odds (1X2)</h3>
+                            <div class="odds-display">
+                                <div class="odd-item">
+                                    <span class="label">1 (Home)</span>
+                                    <span class="value" id="odd-home"></span>
+                                    <span class="prob" id="prob-home"></span>
+                                </div>
+                                <div class="odd-item">
+                                    <span class="label">X (Draw)</span>
+                                    <span class="value" id="odd-draw"></span>
+                                    <span class="prob" id="prob-draw"></span>
+                                </div>
+                                <div class="odd-item">
+                                    <span class="label">2 (Away)</span>
+                                    <span class="value" id="odd-away"></span>
+                                    <span class="prob" id="prob-away"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-card">
+                            <h3>Win Distribution</h3>
+                            <canvas id="win-distribution-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dash-column-right">
+                        <div class="dash-card" id="other-markets-container">
+                            <h3>Other Markets</h3>
+                            <div id="markets-grid">
+                                <!-- JS will populate this -->
+                            </div>
+                        </div>
+                        <div class="dash-card">
+                            <h3>Correct Score Probability Heatmap (%)</h3>
+                            <div id="heatmap-container">
+                                <table id="heatmap-table">
+                                    <!-- Heatmap preenchida por JS -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Esta mensagem só aparece se NÃO houver odds -->
+            <div id="no-odds-message" class="hidden">
+                <div class="dash-card">
+                    <p>Odds and detailed analysis are not available for this game at the moment.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/main.js"></script>
+</body>
+</html>
