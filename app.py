@@ -156,16 +156,37 @@ def home():
 
 @app.route('/api/fixtures')
 def get_fixtures():
+    sources = [
+        ("primary_http", "http://api.clubelo.com/Fixtures"),
+        ("primary_https", "https://api.clubelo.com/Fixtures"),
+    ]
+
+    last_error = None
+    df = None
+    source_used = None
+
+    # 1) Tentar API (http depois https)
+    for source_name, url in sources:
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            csv_data = io.StringIO(response.text)
+            df = pd.read_csv(csv_data)
+            source_used = source_name
+            break
+        except requests.exceptions.RequestException as e:
+            last_error = e
+
+    # 2) Fallback local se a API falhar
+    if df is None:
+        try:
+            df = pd.read_csv("fixtures_fallback.csv")
+            source_used = "local_fallback"
+        except Exception as e:
+            return jsonify({"error": f"Failed to fetch data from Clubelo API and fallback: {last_error or e}"}), 500
+
     try:
-        # 1. Ler o CSV da API
-        response = requests.get(FIXTURES_URL)
-        response.raise_for_status()  # Lança um erro se o pedido falhar
-
-        # Usar pandas para ler o CSV diretamente do texto da resposta
-        csv_data = io.StringIO(response.text)
-        df = pd.read_csv(csv_data)
-
-        # 2. Processar cada jogo para calcular as odds
+        # 3. Processar cada jogo para calcular as odds
         results = []
         for index, row in df.iterrows():
             game_data = row.to_dict()
@@ -176,11 +197,9 @@ def get_fixtures():
 
             results.append(game_data)
 
-        # 3. Retornar os resultados em JSON
-        return jsonify(results)
+        # 4. Retornar os resultados em JSON
+        return jsonify({"source": source_used, "fixtures": results})
 
-    except requests.exceptions.RequestException as e:
-        return jsonify({"error": f"Failed to fetch data from Clubelo API: {e}"}), 500
     except Exception as e:
         return jsonify({"error": f"An internal error occurred: {e}"}), 500
 

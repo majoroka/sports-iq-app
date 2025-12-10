@@ -23,7 +23,9 @@ async function fetchFixtures() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        fixturesData = await response.json();
+        const data = await response.json();
+        // API pode devolver lista direta ou objeto {fixtures: [...], source: ...}
+        fixturesData = Array.isArray(data) ? data : (data.fixtures || []);
         // Adicionar um ID único a cada jogo para facilitar a seleção
         fixturesData.forEach((fixture, index) => fixture.id = index);
 
