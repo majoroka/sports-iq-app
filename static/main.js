@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // URL do nosso backend API (usa a mesma origem onde a página foi servida)
 const API_URL = `${window.location.origin}/api/fixtures`;
+=======
+// URL do nosso backend API
+const API_URL = '/api/fixtures'; // Correct for deployment
+>>>>>>> origin/main
 
 // Elementos dos filtros
 const dateFilter = document.getElementById('date-filter');
@@ -23,7 +28,13 @@ async function fetchFixtures() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
+<<<<<<< HEAD
         fixturesData = await response.json();
+=======
+        const data = await response.json();
+        // API pode devolver lista direta ou objeto {fixtures: [...], source: ...}
+        fixturesData = Array.isArray(data) ? data : (data.fixtures || []);
+>>>>>>> origin/main
         // Adicionar um ID único a cada jogo para facilitar a seleção
         fixturesData.forEach((fixture, index) => fixture.id = index);
 
