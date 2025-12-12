@@ -1,0 +1,84 @@
+Guia Rápido para Manutenção e Atualização da Aplicação Sports IQ
+
+Este ficheiro serve como um guia de referência para fazer alterações, testar e publicar a sua aplicação.
+
+---
+
+### 1. Estrutura do Projeto
+
+Lembre-se que a sua pasta de deploy (`sports_app_deploy`) deve ter sempre esta estrutura:
+
+```
+/sports_app_deploy/
+|
+|-- app.py              # Lógica do servidor e cálculos (Python)
+|-- requirements.txt    # Lista de bibliotecas Python necessárias
+|-- Procfile            # Comando para iniciar o servidor no Render
+|
+|-- static/               # Pasta para ficheiros "estáticos"
+|   |-- style.css       # Estilos visuais da aplicação
+|   |-- main.js         # Comportamento interativo (JavaScript)
+|
+|-- templates/            # Pasta para os ficheiros HTML
+    |-- index.html      # A estrutura da sua página web
+```
+
+---
+
+### 2. Como Fazer e Testar Alterações Localmente
+
+Antes de publicar, é sempre boa ideia testar as alterações no seu próprio computador.
+
+1.  **Abra o Terminal** e navegue para a pasta do projeto:
+    ```bash
+    cd /Users/mariocabano/Documents/sports_app_deploy/
+    ```
+
+2.  **Inicie o servidor local:**
+    ```bash
+    python3 app.py
+    ```
+
+3.  **Abra o seu browser** e aceda a `http://localhost:5000`. Poderá ver e testar a sua aplicação como se estivesse online.
+
+4.  Quando terminar, pode parar o servidor no terminal pressionando `Control + C`.
+
+---
+
+### 3. Onde Fazer as Alterações
+
+*   **Para alterar o visual (cores, fontes, espaçamentos):**
+    Modifique o ficheiro `static/style.css`.
+
+*   **Para alterar a interatividade (o que acontece quando clica, etc.):**
+    Modifique o ficheiro `static/main.js`.
+
+*   **Para alterar os cálculos das odds ou a forma como os dados são processados:**
+    Modifique o ficheiro `app.py`.
+
+*   **Para alterar a estrutura HTML (adicionar ou remover secções):**
+    Modifique o ficheiro `templates/index.html`.
+
+---
+
+### 4. Como Publicar as Alterações Online (Deploy)
+
+Depois de fazer e testar as suas alterações, siga estes passos no Terminal para as colocar no seu site público:
+
+1.  **Navegue para a pasta do projeto:** `cd /Users/mariocabano/Documents/sports_app_deploy/`
+2.  **Adicione as suas alterações:** `git add .`
+3.  **Guarde as alterações com uma mensagem:** `git commit -m "Descreva aqui a alteração que fez"`
+4.  **Envie para o GitHub:** `git push`
+
+O Render.com irá detetar automaticamente a atualização e publicará a nova versão do seu site em poucos minutos.
+
+---
+
+### 5. Como Pedir Ajuda ao Gemini Code Assist
+
+Para que eu o possa ajudar da forma mais eficaz possível, forneça sempre o conteúdo completo dos ficheiros relevantes para o seu pedido.
+
+*   **Para problemas visuais:** Forneça o `style.css` e o `index.html`.
+*   **Para problemas de interatividade:** Forneça o `main.js` e o `index.html`.
+*   **Para problemas nos cálculos ou dados:** Forneça o `app.py`.
+*   **Para problemas de deploy:** Forneça o `app.py`, `Procfile`, `requirements.txt` e os logs de erro do Render.

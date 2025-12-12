@@ -1,0 +1,265 @@
+:root {
+    --bg-color: #1a1a2e;
+    --card-bg-color: #16213e;
+    --primary-color: #0f3460;
+    --accent-color: #e94560;
+    --text-color: #dcdcdc;
+    --text-muted-color: #a0a0a0;
+    --font-family: 'Rajdhani', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 3px solid var(--accent-color);
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #fff;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    background-color: var(--card-bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;    
+    flex-grow: 1; /* Allow groups to grow */
+    min-width: 150px; /* Minimum width for smaller screens */
+}
+
+.filter-group#game-filter-group {
+    flex-grow: 2; /* Make the game filter wider */
+}
+
+.filters label {
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+    margin-bottom: 5px;
+}
+
+.filters select, .filters button {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filters select {
+    /* Reset browser default styles */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Custom arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23dcdcdc' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    padding-right: 40px; /* Make space for the arrow */
+}
+
+.filters select:focus {
+    outline: none; /* Remove default blue outline */
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px -2px var(--accent-color);
+}
+.filters select:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.filters button {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    align-self: flex-end; /* Align with the bottom of the select boxes */
+    transition: background-color 0.2s ease;
+}
+
+.filters button:hover {
+    background-color: #d43d51; /* A slightly darker accent color */
+}
+
+.loading {
+    text-align: center;
+    color: var(--text-muted-color);
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
+}
+
+#dashboard {
+    margin-top: 40px;
+    border-top: 2px solid var(--accent-color);
+    padding-top: 20px;
+}
+
+.dash-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dash-column-left, .dash-column-right {
+    flex: 1;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.dash-column-right {
+    flex: 1.5; /* Give more space to the markets column */
+}
+
+.dash-card {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.dash-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.main-odds .odds-display {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.main-odds .odd-item .label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+}
+
+.main-odds .odd-item .value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+}
+
+.main-odds .odd-item .prob {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-family: var(--font-mono);
+}
+
+#markets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Distribute space equally into 4 columns */
+    gap: 30px; /* Increased gap between columns */
+    margin-top: 1rem;
+}
+
+.market-column h4 {
+    margin: 0 0 10px 0;
+    font-weight: 600;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
+}
+
+.market-row {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Label takes available space, value is auto-width */
+    gap: 10px; /* This creates a small, controlled space between label and value */
+    padding: 6px 0;
+    font-size: 0.9rem;
+}
+
+.market-label {
+    color: var(--text-muted-color);
+}
+
+.market-value {
+    font-weight: 600;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+}
+
+#no-odds-message .dash-card {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-muted-color);
+}
+
+#heatmap-container {
+    overflow-x: auto;
+}
+
+#heatmap-table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+#heatmap-table th, #heatmap-table td {
+    height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    font-size: 0.8rem;
+    border: none;
+    font-family: var(--font-mono);
+}
+
+#heatmap-table .header-cell {
+    background-color: var(--primary-color);
+    font-weight: bold;
+}
+
+#heatmap-table .home-header {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+/* --- Media Queries for Responsive Design --- */
+@media (max-width: 768px) {
+    .dash-column-right {
+        /* On smaller screens, the right column doesn't need to be wider */
+        flex: 1;
+    }
+
+    #markets-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile instead of 4 */
+    }
+}
